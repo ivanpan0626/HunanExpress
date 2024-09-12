@@ -5,11 +5,11 @@ export default function Hero(){
     return(
         <section className='hero'>
             <div classname='py-12'>
-                <h1 className='text-4xl font-semibold'>
+                <h1 className='text-4xl font-semibold leading-relaxed'>
                     Everything is better with&nbsp;
                     <span className='text-primary'>Hunan Express</span>
                 </h1>
-                <p className='my-4 text-gray-500'>
+                <p className='my-6 text-gray-500'>
                     Order your favorite chinese food here!
                 </p>
                 <div className='flex gap-4 text-sm'>
@@ -24,7 +24,7 @@ export default function Hero(){
                 </div>
             </div>
             <div className='relative'>
-                <Image src={'/hunanexpressTest.jpg'} layout={'fill'}
+                <Image src={'/HunanExpress.jpeg'} layout={'fill'}
                 objectFit={'contain'} alt={'Chinese Restaurant'} />
             </div>
         </section>
