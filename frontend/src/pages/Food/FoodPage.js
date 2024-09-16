@@ -14,7 +14,7 @@ export default function FoodPage() {
         getById(id).then(setFood);
     }, [id])
 
-  return (
+  return ( //Food page for each individual item
     <>
     {food && <div className={styles.container}>
         <img className={styles.image}

@@ -35,7 +35,7 @@ export default function HomePage() {
     loadFoods.then(foods => dispatch({type: 'FOODS_LOADED', payload: foods }));
   }, [searchTerm, tag]);
 
-  return (
+  return (//Handles base page, with search bar and tags
     <>
     <Search></Search>
     <Tags tags={tags}></Tags>
