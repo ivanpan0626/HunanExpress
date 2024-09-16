@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import FoodPage from './pages/Food/FoodPage';
-
+import CartPage from './pages/Cart/CartPage'
 export default function AppRoutes() {
   return (
     <Routes>
@@ -17,6 +17,9 @@ export default function AppRoutes() {
         </Route>
         <Route path='/food/:id' 
         element={<FoodPage></FoodPage>}>
+        </Route>
+        <Route path='/cart' 
+        element={<CartPage></CartPage>}>
         </Route>
     </Routes>
   )
