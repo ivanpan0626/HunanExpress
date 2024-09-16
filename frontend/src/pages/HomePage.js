@@ -4,7 +4,7 @@ import {getAll, getAllTags, search, getAllByTag} from '../services/foodService.j
 import Thumbnails from '../components/Thumbnails/Thumbnails.js'
 import Search from '../components/Search/Search.js'
 import Tags from '../components/Tags/Tags.js'
-
+import NotFound from '../components/NotFound/NotFound.js'
 const initialState = {foods:[], tags: []};
 
 const reducer = (state,action) => {
@@ -39,6 +39,7 @@ export default function HomePage() {
     <>
     <Search></Search>
     <Tags tags={tags}></Tags>
+    {foods.length === 0 && <NotFound linkedText='Go back'></NotFound>}
     <Thumbnails foods={foods}></Thumbnails>
     </>
   )

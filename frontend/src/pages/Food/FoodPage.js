@@ -6,6 +6,7 @@ import {useCart} from '../../hooks/useCart'
 import StarRating from '../../components/StarRating/StarRating';
 import Tags from '../../components/Tags/Tags';
 import Price from '../../components/Price/Price';
+import NotFound from '../../components/NotFound/NotFound';
 
 export default function FoodPage() {
     const [food, setFood] = useState({});
@@ -24,7 +25,9 @@ export default function FoodPage() {
 
   return ( //Food page for each individual item
     <>
-    {food && <div className={styles.container}>
+    {!food 
+    ? (<NotFound message='Food not Found!' linkedText='Back to Home Page'></NotFound>) 
+    : (<div className={styles.container}>
         <img className={styles.image}
         src={`/foods/${food.imageUrl}`}
         alt={food.name}></img>
@@ -63,7 +66,7 @@ export default function FoodPage() {
                 Add to Cart
             </button>
         </div>
-    </div>}
+    </div>)}
     </>
   )
 }
