@@ -6,17 +6,14 @@ import { useCart } from '../../hooks/useCart'
 
 export default function Header(){
     const {cart} = useCart();
-    const user = {
-        name: 'John'
-    };
 
     return(
         <header className={styles.header}>
             <div className={styles.container}>
                 <Link to='/' className={styles.logo}>
-                    Food Mine!
+                    Hunan Express!
                 </Link>
-                <Navbar user={user} cart={cart}></Navbar>
+                <Navbar cart={cart}></Navbar>
             </div>
         </header>
     )

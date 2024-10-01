@@ -1,9 +1,16 @@
 import React from 'react'
 import styles from './navbar.module.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../hooks/useAuth';
 
-export default function Navbar({user, cart}){
-    const logout = () => {}
+export default function Navbar({cart}){
+    const {user, logout} = useAuth();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+    }
 
     return(
         <nav>
@@ -21,7 +28,7 @@ export default function Navbar({user, cart}){
                                     <Link to='/orders'>
                                         Orders
                                     </Link>
-                                    <a onClick={logout}>
+                                    <a onClick={handleLogout}>
                                         Logout
                                     </a>
                                 </div>

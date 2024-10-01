@@ -3,6 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import FoodPage from './pages/Food/FoodPage';
 import CartPage from './pages/Cart/CartPage'
+import LoginPage from './pages/Login/LoginPage';
+
 export default function AppRoutes() {
   return (
     <Routes>
@@ -20,6 +22,9 @@ export default function AppRoutes() {
         </Route>
         <Route path='/cart' 
         element={<CartPage></CartPage>}>
+        </Route>
+        <Route path='/login' 
+        element={<LoginPage></LoginPage>}>
         </Route>
     </Routes>
   )
