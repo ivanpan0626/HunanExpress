@@ -29,7 +29,7 @@ export default function FoodPage() {
     ? (<NotFound message='Food not Found!' linkedText='Back to Home Page'></NotFound>) 
     : (<div className={styles.container}>
         <img className={styles.image}
-        src={`/foods/${food.imageUrl}`}
+        src={`${food.imageUrl}`}
         alt={food.name}></img>
         <div className={styles.details}>
             <div className={styles.header}>
