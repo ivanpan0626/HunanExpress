@@ -11,7 +11,7 @@
 .details form {
   display: flex;
   flex-direction: column;
-    ustify-content: center;
+  justify-content: center;
 }
 
 .register {
