@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import FoodPage from './pages/Food/FoodPage';
 import CartPage from './pages/Cart/CartPage'
 import LoginPage from './pages/Login/LoginPage';
+import RegisterPage from './pages/Register/RegisterPage';
 
 export default function AppRoutes() {
   return (
@@ -25,6 +26,9 @@ export default function AppRoutes() {
         </Route>
         <Route path='/login' 
         element={<LoginPage></LoginPage>}>
+        </Route>
+        <Route path='/register' 
+        element={<RegisterPage></RegisterPage>}>
         </Route>
     </Routes>
   )

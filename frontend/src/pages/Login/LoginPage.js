@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, Link} from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import styles from './loginPage.module.css';
 import Title from '../../components/Title/Title';
@@ -57,6 +57,13 @@ export default function LoginPage() {
                 </Input>
 
                 <Button type="submit" text="Login"></Button>
+
+                <div className={styles.register}>
+                    New user? &nbsp;
+                    <Link to={`/register?${returnUrl ? 'returnUrl=' + returnUrl : ''}`}>
+                        Register Here!
+                    </Link>
+                </div>
             </form>
         </div>
     </div>
