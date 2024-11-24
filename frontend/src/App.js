@@ -23,7 +23,6 @@ function App() {
     <>
       <Loading />
       <Header />
-      {/* Wrap AppRoutes with Elements */}
       <Elements stripe={stripePromise}>
         <AppRoutes />
       </Elements>

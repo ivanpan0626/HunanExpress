@@ -23,13 +23,12 @@ export default function CheckoutPage() {
       const items = cart.items.map(item => ({
         name: item.food.name,
         description: item.food.description, // Optional, add product description
-        imageUrl: item.food.imageUrl, // Optional, add product image URL
-        price: item.price, 
+        price: item.food.price, 
         quantity: item.quantity,
       }));
-  
+
       // Make a POST request to create the Checkout session using axios
-      const response = await axios.post('/api/create-checkout-session', { items });
+      const response = await axios.post('/api/stripe/create-checkout-session', { items, customData: data});
   
       if (response.data && response.data.sessionId) {
         const { sessionId } = response.data;
@@ -90,12 +89,23 @@ export default function CheckoutPage() {
               error={errors.name}
             />
             <Input
+              label="Phone Number"
+              {...register('phone', { 
+                required: "Phone number is required", 
+                pattern: {
+                  value: /^[0-9]{10}$/, // 10-digit number
+                  message: "Phone number must be 10 digits"
+                }
+              })}
+              error={errors.phone}
+            />
+            <Input
               label="Address"
               {...register('address', { required: "Address is required" })}
               error={errors.address}
             />
             <Input
-              label="APT/Floor"
+              label="APT#"
               {...register('floor')}
               error={errors.floor}
             />
@@ -106,7 +116,13 @@ export default function CheckoutPage() {
             />
             <Input
               label="Zip Code"
-              {...register('zipcode', { required: "Zip Code is required" })}
+              {...register('zipcode', { 
+                required: "Zip Code is required", 
+                pattern: {
+                  value: /^[0-9]{5}$/, // 5-digit zip code
+                  message: "Zip Code must be 5 digits"
+                }
+              })}
               error={errors.zipcode}
             />
           </div>

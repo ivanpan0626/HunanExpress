@@ -6,6 +6,7 @@ import CartPage from './pages/Cart/CartPage'
 import LoginPage from './pages/Login/LoginPage';
 import RegisterPage from './pages/Register/RegisterPage';
 import CheckoutPage from './pages/Checkout/CheckoutPage';
+import CheckoutSuccessPage from './pages/Checkout/CheckoutSuccessPage';
 
 export default function AppRoutes() {
   return (
@@ -25,15 +26,20 @@ export default function AppRoutes() {
         <Route path='/cart' 
         element={<CartPage></CartPage>}>
         </Route>
-        <Route path='/login' 
-        element={<LoginPage></LoginPage>}>
-        </Route>
-        <Route path='/register' 
-        element={<RegisterPage></RegisterPage>}>
-        </Route>
+
+
         <Route path='/checkout' 
         element={<CheckoutPage></CheckoutPage>}>
+        </Route>
+        <Route path='/checkout/success' 
+        element={<CheckoutSuccessPage></CheckoutSuccessPage>}>
         </Route>
     </Routes>
   )
 }
+//        <Route path='/register' 
+//element={<RegisterPage></RegisterPage>}>
+//</Route>
+//        <Route path='/login' 
+//element={<LoginPage></LoginPage>}>
+//</Route>

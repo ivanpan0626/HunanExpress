@@ -9,7 +9,7 @@ const PASSWORD_HASH_SALT_ROUNDS = 10;
 
 const router = Router();
 
-router.post('/login', handler(async  (req, res) => {
+router.post('/login', handler(async (req, res) => {
     const {email, password} = req.body;
     //const user = sample_users.find(
         //user => user.email === email && user.password === password
