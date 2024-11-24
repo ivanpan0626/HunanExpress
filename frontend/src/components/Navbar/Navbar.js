@@ -15,29 +15,7 @@ export default function Navbar({cart}){
     return(
         <nav>
                     <ul>
-                        {
-                            user?
-                            <li className={styles.menu_container}>
-                                <Link to='/profile'>
-                                    {user.name}
-                                </Link>
-                                <div className={styles.menu}>
-                                    <Link to='/profile'>
-                                        Profile
-                                    </Link>
-                                    <Link to='/orders'>
-                                        Orders
-                                    </Link>
-                                    <a onClick={handleLogout}>
-                                        Logout
-                                    </a>
-                                </div>
-                            </li>
-                            :
-                            <Link to='/login'>
-                                Login
-                            </Link>
-                        }
+                        
 
                         <li>
                             <Link to='/cart'>
@@ -49,3 +27,20 @@ export default function Navbar({cart}){
                 </nav>
     )
 }
+
+// {
+//   user ? (
+//     <li className={styles.menu_container}>
+//       <Link to='/profile'>
+//         {user.name}
+//       </Link>
+//       <div className={styles.menu}>
+//         <Link to='/profile'>Profile</Link>
+//         <Link to='/orders'>Orders</Link>
+//         <a onClick={handleLogout}>Logout</a>
+//       </div>
+//     </li>
+//   ) : (
+//     <Link to='/login'>Login</Link>
+//   )
+// }

@@ -10,11 +10,6 @@ const EMPTY_CART = {
 
 export default function CartProvider({children}) {
     const initCart = getCartFromLocalStorage();
-    //const [cartItems, setCartItems] = useState(
-        //sample_foods
-            //.slice(1,4)
-            //.map(food => ({food, quantity: 1, price: food.price}))
-        //);
     const [cartItems, setCartItems] = useState(initCart.items)
     const[totalPrice, setTotalPrice] = useState(initCart.totalPrice);
     const [totalCount, setTotalCount] = useState(initCart.totalCount);

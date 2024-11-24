@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './cartPage.module.css'
 import { useCart } from '../../hooks/useCart'
 import Title from '../../components/Title/Title.js'
@@ -8,7 +8,7 @@ import NotFound from '../../components/NotFound/NotFound';
 
 export default function CartPage() {
   const {cart, removeFromCart, changeQuantity} = useCart();
-  console.log(cart.totalPrice)
+
   return (
     <>
     <Title title="Cart" margin='1.5rem 0 0 2.5rem'></Title>

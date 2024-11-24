@@ -5,6 +5,7 @@ import FoodPage from './pages/Food/FoodPage';
 import CartPage from './pages/Cart/CartPage'
 import LoginPage from './pages/Login/LoginPage';
 import RegisterPage from './pages/Register/RegisterPage';
+import CheckoutPage from './pages/Checkout/CheckoutPage';
 
 export default function AppRoutes() {
   return (
@@ -29,6 +30,9 @@ export default function AppRoutes() {
         </Route>
         <Route path='/register' 
         element={<RegisterPage></RegisterPage>}>
+        </Route>
+        <Route path='/checkout' 
+        element={<CheckoutPage></CheckoutPage>}>
         </Route>
     </Routes>
   )
