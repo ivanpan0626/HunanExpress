@@ -10,7 +10,6 @@ const CheckoutSuccess = () => {
   useEffect(() => {
     const fetchSessionDetails = async () => {
       if (!sessionId) return;
-
       try {
         const response = await axios.get(`http://localhost:5000/api/stripe/checkout-session/${sessionId}`);
         console.log('Checkout Session:', response.data);
