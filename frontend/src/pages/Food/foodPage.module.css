@@ -1,100 +1,235 @@
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 3rem;
+}
+
+.container > * {
+  min-width: 25rem;
+  max-width: 40rem;
+}
+
+.image {
+  border-radius: 3rem;
+  flex: 1 0;
+  object-fit: cover;
+  height: 35rem;
+  margin: 1rem;
+}
+
+.details {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1 0;
+  border-radius: 3rem;
+  padding: 2rem;
+  color: black;
+  margin-left: 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.name {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.price {
+  font-size: 1.8rem;
+  margin: 2rem 2rem 2rem 0;
+  color: green;
+}
+
+.price::before {
+  content: "Price: ";
+  color: darkgrey;
+}
+
+.container button {
+  color: white;
+  background-color: #e72929;
+  border: none;
+  font-size: 1.2rem;
+  padding: 1rem;
+  border-radius: 10rem;
+  outline: none;
+}
+
+.container button:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.sizesContainer {
+  margin-bottom: 16px;
+}
+
+.sizeTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.sizes {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(200px, 1fr)
+  ); /* Grid layout for size options */
+  gap: 1.5rem;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sizeOption {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the radio button and label */
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #fff;
+  transition: background-color 0.3s, transform 0.3s;
+  cursor: pointer;
+  box-sizing: border-box; /* Include padding in the width */
+}
+
+.sizeOption:hover {
+  background-color: #e1e1e1;
+  transform: scale(1.05);
+}
+
+.sizeOption input {
+  margin-right: 1rem; /* Space between radio button and label */
+  transform: scale(1.2); /* Adjust radio button size */
+}
+
+.sizeLabel {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #333;
+  flex-grow: 1; /* Make sure label takes up the remaining space */
+  display: flex;
+  justify-content: flex-start; /* Align the text to the left */
+}
+
+.sizeLabel:hover {
+  color: #e72929;
+}
+
+@media (max-width: 768px) {
+  .sizes {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(160px, 1fr)
+    ); /* Adjust grid layout for smaller screens */
   }
-  
-  .container > * {
-    min-width: 25rem;
-    max-width: 40rem;
+
+  .sizeOption {
+    padding: 12px 10px;
   }
-  
-  .image {
-    border-radius: 3rem;
-    flex: 1 0;
-    object-fit: cover;
-    height: 35rem;
-    margin: 1rem;
+}
+
+.addonsContainer {
+  margin-bottom: 16px;
+}
+
+.addonTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.addons {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(200px, 1fr)
+  ); /* Grid layout for addons */
+  gap: 1.5rem;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.addonOption {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the radio button and label */
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #fff;
+  transition: background-color 0.3s, transform 0.3s;
+  cursor: pointer;
+  box-sizing: border-box; /* Include padding in the width */
+}
+
+.addonOption:hover {
+  background-color: #e1e1e1;
+  transform: scale(1.05);
+}
+
+.addonOption input {
+  margin-right: 1rem; /* Space between radio button and label */
+  transform: scale(1.2); /* Adjust radio button size */
+}
+
+.addonLabel {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #333;
+  flex-grow: 1; /* Make sure label takes up the remaining space */
+  display: flex;
+  justify-content: flex-start; /* Align the text to the left */
+}
+
+.addonLabel:hover {
+  color: #e72929;
+}
+
+@media (max-width: 768px) {
+  .addons {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   }
-  
-  .details {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    flex: 1 0;
-    border-radius: 3rem;
-    padding: 2rem;
-    color: black;
-    margin-left: 1rem;
+
+  .addonOption {
+    padding: 12px 10px;
   }
-  
-  .header {
-    display: flex;
-    justify-content: space-between;
+}
+
+.instructions {
+  margin-top: 16px;
+}
+
+.instructionsLabel {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.instructionsInput {
+  width: 100%;
+  height: 80px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none; /* Prevent resizing */
+  font-size: 1rem; /* Ensure readability on all devices */
+}
+
+@media (max-width: 768px) {
+  .instructionsInput {
+    height: 60px; /* Adjust height for smaller screens */
+    font-size: 0.9rem; /* Adjust font size for smaller screens */
   }
-  
-  .name {
-    font-size: 2rem;
-    font-weight: bold;
-  }
-  
-  .favorite {
-    color: #e72929;
-    font-size: 2.5rem;
-  }
-  
-  .favorite.not {
-    color: grey;
-  }
-  
-  .origins {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0.7rem 0;
-  }
-  
-  .origins > span {
-    padding: 0.5rem;
-    font-size: 1.2rem;
-    margin: 0.5rem 0.5rem 0 0;
-    border-radius: 2rem;
-    background-color: aliceblue;
-  }
-  
-  .cook_time {
-    margin-top: 1rem;
-  }
-  
-  .cook_time span {
-    padding: 0.6rem 2rem 0.6rem 0;
-    border-radius: 10rem;
-    font-size: 1.3rem;
-  }
-  
-  .price {
-    font-size: 1.8rem;
-    margin: 2rem 2rem 2rem 0;
-    color: green;
-  }
-  
-  .price::before {
-    content: 'Price: ';
-    color: darkgrey;
-  }
-  
-  .container button {
-    color: white;
-    background-color: #e72929;
-    border: none;
-    font-size: 1.2rem;
-    padding: 1rem;
-    border-radius: 10rem;
-    outline: none;
-  }
-  
-  .container button:hover {
-    opacity: 0.9;
-    cursor: pointer;
-  }
+}

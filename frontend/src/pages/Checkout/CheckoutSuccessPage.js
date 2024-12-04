@@ -1,25 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { useCart } from "../../hooks/useCart";
+import axios from "axios";
 
 const CheckoutSuccess = () => {
+  const { clearCart } = useCart();
   const [searchParams] = useSearchParams();
-  const sessionId = searchParams.get('session_id');
-  const [customData, setCustomData] = useState(null);
+  const sessionId = searchParams.get("session_id");
+  const [msg, setMsg] = useState("");
 
   useEffect(() => {
     const fetchSessionDetails = async () => {
       if (!sessionId) return;
       try {
-        const response = await axios.get(`http://localhost:5000/api/stripe/checkout-session/${sessionId}`);
-        console.log('Checkout Session:', response.data);
-
-        // Retrieve the custom data from metadata
-        const metadata = JSON.parse(response.data.metadata.custom_data);
-        setCustomData(metadata); // Store custom data in state
-
+        const response = await axios.get(
+          `http://localhost:5000/api/stripe/checkout-session/${sessionId}`
+        );
+        if (response.status === 200) {
+          clearCart();
+          setMsg(response.data.message);
+        }
       } catch (error) {
-        console.error('Error fetching session details:', error);
+        setMsg("Invalid Session Id");
+        console.error("Error fetching session details:", error);
       }
     };
 
@@ -28,15 +31,8 @@ const CheckoutSuccess = () => {
 
   return (
     <div>
-      <h1>Checkout Success</h1>
-      {customData ? (
-        <div>
-          <h2>Custom Data</h2>
-          <pre>{JSON.stringify(customData, null, 2)}</pre>
-        </div>
-      ) : (
-        <p>Loading custom data...</p>
-      )}
+      <h1>Thank you for your order!</h1>
+      <h2> {msg} </h2>
     </div>
   );
 };

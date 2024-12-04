@@ -1,13 +1,27 @@
-.container{
-    display: flex;
-    flex-wrap: wrap;
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 16px; /* Added space below the tags */
 }
 
-.container a{
-    background-color: #f0f0f0;
-    padding: 0.3rem 1rem;
-    margin: 0.2rem 0.15rem;
-    border-radius: 10rem;
-    font-weight: 600;
-    color: blue;
+.container a {
+  background-color: #e0f7fa; /* Light blue background */
+  color: #00796b; /* Darker color for text */
+  padding: 0.5rem 1rem; /* Adjusted padding for a balanced appearance */
+  margin: 0.2rem 0.15rem; /* Spacing between each tag */
+  border-radius: 50%; /* Circular background */
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem; /* Adjust font size */
+  text-decoration: none; /* Remove underline */
+}
+
+.container a:hover {
+  background-color: #b2ebf2; /* Slightly darker background on hover */
+}
+
+.container a:last-child {
+  margin-right: 0; /* Remove right margin for the last tag */
 }

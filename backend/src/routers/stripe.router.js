@@ -90,7 +90,7 @@ router.get(
       if (order && order.isProcessed) {
         await getAccessToken();
         console.log("Order Already Processed");
-        return res.status(400).json({ message: "Order already Processed." });
+        return res.status(200).json({ message: "Order already Processed." });
       }
 
       // Retrieve the session from Stripe API
