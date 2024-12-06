@@ -62,7 +62,7 @@ export default function CheckoutPage() {
       // Create the cart items array to send to the backend
       const items = cart.items.map((item) => ({
         name: item.food.name,
-        description: item.food.description, // Optional, add product description
+        description: item.food.instructions || "empty",
         price: item.food.price,
         quantity: item.quantity,
       }));

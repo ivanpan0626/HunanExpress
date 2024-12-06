@@ -28,25 +28,28 @@ export default function CartPage() {
                 </div>
                 <div>
                   <Link to={`/food/${item.food.id}`}>{item.food.name}</Link>
+                  {item.food.instructions !== "" ? (
+                    <div>{item.food.instructions}</div>
+                  ) : (
+                    <></>
+                  )}
                 </div>
                 <div>
-                  <select
-                    value={item.quantity}
-                    onChange={(e) =>
-                      changeQuantity(item, Number(e.target.value))
-                    }
-                  >
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                    <option>7</option>
-                    <option>8</option>
-                    <option>9</option>
-                    <option>10</option>
-                  </select>
+                  <input
+                    type="number"
+                    value={item.quantity || Number(1)}
+                    min="1"
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      // Only update quantity if the input is a valid number or empty
+                      if (
+                        value === "" ||
+                        (!isNaN(value) && Number(value) >= 1)
+                      ) {
+                        changeQuantity(item, value === "" ? 1 : Number(value)); // Default to 1 if empty
+                      }
+                    }}
+                  />
                 </div>
                 <div>
                   <Price price={item.price}></Price>
@@ -54,7 +57,7 @@ export default function CartPage() {
                 <div>
                   <button
                     className={styles.remove_button}
-                    onClick={() => removeFromCart(item.food.id)}
+                    onClick={() => removeFromCart(item.food)}
                   >
                     Remove
                   </button>

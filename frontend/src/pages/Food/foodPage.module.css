@@ -233,3 +233,41 @@
     font-size: 0.9rem; /* Adjust font size for smaller screens */
   }
 }
+
+.priceQuantityContainer {
+  display: flex;
+  align-items: center; /* Align items vertically */
+  gap: 1rem; /* Space between price and select */
+}
+
+.priceQuantityContainer select {
+  padding: 0.5rem; /* Add padding to make it visually appealing */
+  font-size: 1rem; /* Adjust font size */
+  border: 1px solid #ccc; /* Add a border */
+  border-radius: 4px; /* Slight rounding for better aesthetics */
+}
+
+/* New styles for button container */
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem; /* Small space between the buttons */
+  margin-top: 2rem;
+}
+
+.container button {
+  color: white;
+  background-color: #e72929;
+  border: none;
+  font-size: 1.2rem;
+  padding: 1rem;
+  border-radius: 10rem;
+  outline: none;
+  width: 48%;
+  flex-grow: 0;
+}
+
+.container button:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}

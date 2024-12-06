@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./thumbnails.module.css";
 import { Link } from "react-router-dom";
-import StarRating from "../StarRating/StarRating.js";
 import Price from "../Price/Price";
 
 export default function Thumbnails({ foods }) {

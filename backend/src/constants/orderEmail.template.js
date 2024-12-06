@@ -49,6 +49,10 @@ export const deliveryEmailTemplate = (orderSummary, orderDetails) => `
         th {
           background-color: #f4f4f4;
         }
+        .item-description {
+          font-size: 12px;
+          color: #666;
+        }
         .order-totals {
           margin-top: 10px;
           text-align: right;
@@ -96,7 +100,12 @@ export const deliveryEmailTemplate = (orderSummary, orderDetails) => `
                 .map(
                   (item) => `
                   <tr>
-                    <td>${item.name}</td>
+                    <td>
+                      ${item.name}
+                      <div class="item-description">${
+                        item.description || ""
+                      }</div>
+                    </td>
                     <td>${item.qty}</td>
                     <td>$${item.price.toFixed(2)}</td>
                   </tr>
@@ -178,6 +187,10 @@ export const pickupEmailTemplate = (orderSummary, orderDetails) => `
         th {
           background-color: #f4f4f4;
         }
+        .item-description {
+          font-size: 12px;
+          color: #666;
+        }
         .order-totals {
           margin-top: 10px;
           text-align: right;
@@ -220,7 +233,12 @@ export const pickupEmailTemplate = (orderSummary, orderDetails) => `
                 .map(
                   (item) => `
                   <tr>
-                    <td>${item.name}</td>
+                    <td>
+                      ${item.name}
+                      <div class="item-description">${
+                        item.description || ""
+                      }</div>
+                    </td>
                     <td>${item.qty}</td>
                     <td>$${item.price.toFixed(2)}</td>
                   </tr>

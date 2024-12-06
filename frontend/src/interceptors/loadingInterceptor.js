@@ -1,23 +1,23 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const setLoadingInterceptor = ({ showLoading, hideLoading }) => {
   axios.interceptors.request.use(
-    req => {
+    (req) => {
       showLoading();
       return req;
     },
-    error => {
+    (error) => {
       hideLoading();
       return Promise.reject(error);
     }
   );
 
   axios.interceptors.response.use(
-    res => {
+    (res) => {
       hideLoading();
       return res;
     },
-    error => {
+    (error) => {
       hideLoading();
       return Promise.reject(error);
     }

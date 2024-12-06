@@ -9,13 +9,18 @@ import NotFound from "../../components/NotFound/NotFound";
 
 export default function FoodPage() {
   const [food, setFood] = useState({});
+  const [quantity, setQuantity] = useState(1);
   const { id } = useParams();
   const { addToCart } = useCart();
   const navigate = useNavigate();
 
   const handleAddToCart = () => {
-    addToCart(food);
-    navigate("/cart");
+    addToCart(food, Number(quantity));
+    navigate("/");
+  };
+
+  const handleGoBack = () => {
+    navigate("/");
   };
 
   useEffect(() => {
@@ -24,9 +29,11 @@ export default function FoodPage() {
       // Set the default item size if available
       if (fetchedFood.size) {
         fetchedFood.selectedOptions = fetchedFood.size[0];
+        fetchedFood.name = fetchedFood.ogName + ` - (${fetchedFood.size[0]})`;
       }
       if (fetchedFood.addons) {
         fetchedFood.selectedOptions = fetchedFood.addons[0];
+        fetchedFood.name = fetchedFood.ogName + ` - (${fetchedFood.addons[0]})`;
       }
       setFood(fetchedFood);
     });
@@ -37,12 +44,12 @@ export default function FoodPage() {
       type === "size"
         ? food.size.indexOf(selected)
         : food.addons.indexOf(selected);
-
     // Update food state with the new selectedOptions and corresponding price
     setFood((prevFood) => ({
       ...prevFood, // Spread the previous food object to keep other properties
       selectedOptions: selected, // Update selected size
       price: prevFood.priceOptions[selectedIndex], // Update price based on selected size
+      name: prevFood.ogName + ` - (${selected})`,
     }));
   };
 
@@ -153,11 +160,35 @@ export default function FoodPage() {
                 ></textarea>
               </div>
             </div>
-            <div className={styles.price}>
-              <Price price={food.price}></Price>
-            </div>
 
-            <button onClick={handleAddToCart}>Add to Cart</button>
+            {/* Footer Section */}
+            <div className={styles.priceQuantityContainer}>
+              <div className={styles.price}>
+                <Price price={food.price}></Price>
+              </div>
+              <div>
+                <label style={{ color: "darkgrey" }}>Quantity: </label>
+                <select
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value)}
+                >
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                  <option>9</option>
+                  <option>10</option>
+                </select>
+              </div>
+            </div>
+            <div className={styles.buttonContainer}>
+              <button onClick={handleAddToCart}>Add to Cart</button>
+              <button onClick={handleGoBack}>Back to Home</button>
+            </div>
           </div>
         </div>
       )}

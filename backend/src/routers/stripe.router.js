@@ -4,6 +4,7 @@ import stripe from "stripe";
 import nodemailer from "nodemailer";
 import { google } from "googleapis";
 import { OrderModel } from "../models/order.model.js";
+import { TokenModel } from "../models/token.model.js";
 import {
   deliveryEmailTemplate,
   pickupEmailTemplate,
@@ -21,19 +22,17 @@ const oauth2Client = new google.auth.OAuth2(
 );
 
 oauth2Client.setCredentials({
-  access_token: "",
   refresh_token: process.env.GOOGLE_REFRESH_TOKEN,
-  expiry_date: Date.now(),
 });
 
 // A function to check if the access token is expired and refresh it if needed
 const getAccessToken = async () => {
-  const credentials = oauth2Client.credentials;
+  let credentials = await TokenModel.findOne({ service: "google" });
 
   // Check if the access token is expired (expires_in is usually in seconds)
-  if (!credentials.expiry_date || credentials.expiry_date <= Date.now()) {
+  if (!credentials.expiryDate || credentials.expiryDate <= Date.now()) {
     console.log(
-      `Access token expired ${new Date(credentials.expiry_date).toLocaleString(
+      `Access token expired ${new Date(credentials.expiryDate).toLocaleString(
         "en-US",
         {
           timeZone: "America/New_York",
@@ -42,11 +41,17 @@ const getAccessToken = async () => {
     );
     // Refresh the access token
     const response = await oauth2Client.refreshAccessToken();
-    oauth2Client.setCredentials({
-      access_token: response.credentials.access_token,
-      refresh_token: response.credentials.refresh_token,
-      expiry_date: response.credentials.expiry_date,
-    });
+    const { access_token, expiry_date } = response.credentials;
+
+    credentials = await TokenModel.findOneAndUpdate(
+      { service: "google" },
+      {
+        accessToken: access_token,
+        expiryDate: new Date(expiry_date),
+      },
+      { upsert: true, new: true }
+    );
+
     console.log(
       `Access Token Refreshed ${new Date(
         response.credentials.expiry_date
@@ -56,13 +61,12 @@ const getAccessToken = async () => {
     );
   }
 
-  return oauth2Client.credentials.access_token;
+  return credentials.access_token;
 };
 
 // Create an async function to create a transporter that always uses a valid access token
 const createTransporter = async () => {
   const accessToken = await getAccessToken();
-
   return nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -88,9 +92,11 @@ router.get(
 
       let order = await OrderModel.findOne({ sessionId });
       if (order && order.isProcessed) {
-        await getAccessToken();
-        console.log("Order Already Processed");
-        return res.status(200).json({ message: "Order already Processed." });
+        return res.status(200).json({
+          title: "Thank you for ordering with us!",
+          body: "Order is already processed!",
+          footer: "Contact us at 201-384-1880 for any issues!",
+        });
       }
 
       // Retrieve the session from Stripe API
@@ -120,11 +126,22 @@ router.get(
         totalAmount: session.amount_total / 100, // Total amount in dollars (including tax and fees)
       };
 
-      const orderDetails = lineItems.data.map((item) => ({
-        name: item.description, // or item.price_data.product_data.name
-        qty: item.quantity,
-        price: item.amount_subtotal / 100, // Price per item in dollars
-      }));
+      const orderDetails = await Promise.all(
+        lineItems.data.map(async (item) => {
+          // Retrieve the product using the price's product ID
+          const product = await stripeClient.products.retrieve(
+            item.price.product
+          );
+
+          return {
+            name: product.name,
+            description:
+              product.description === "empty" ? "" : product.description, // Access the description from the product
+            qty: item.quantity,
+            price: item.amount_subtotal / 100, // Price per item in dollars
+          };
+        })
+      );
 
       if (!order) {
         order = new OrderModel({
@@ -160,10 +177,27 @@ router.get(
 
       order.isProcessed = true;
       await order.save();
-      res.json(session);
+
+      if (customData.order == "pickup") {
+        res.status(200).json({
+          title: "Thank you for ordering with us!",
+          body: "Please Pickup at 161 N Washington Ave, Bergenfield, NJ, 07621",
+          footer: "Contact us at 201-384-1880 for any issues!",
+        });
+      } else {
+        res.status(200).json({
+          title: "Thank you for ordering with us!",
+          body: "We will try our best to deliver your order on time!",
+          footer: "Contact us at 201-384-1880 for any issues!",
+        });
+      }
     } catch (error) {
-      console.error("Error fetching session:", error);
-      res.status(500).send({ error: "Failed to retrieve session" });
+      return res.status(500).json({
+        title: "System Error",
+        body: "Please try again!",
+        footer:
+          "You can also order at 201-384-1880, if website is malfunctioning!",
+      });
     }
   })
 );
@@ -175,11 +209,6 @@ router.post(
     try {
       const { items, customData } = req.body;
 
-      // Calculate the total amount dynamically (e.g., based on items in the cart)
-      const totalAmount = items.reduce(
-        (total, item) => total + item.price * item.quantity,
-        0
-      );
       // Create a Checkout Session
       const session = await stripeClient.checkout.sessions.create({
         payment_method_types: ["card"],

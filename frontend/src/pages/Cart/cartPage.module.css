@@ -120,3 +120,11 @@
   opacity: 0.8;
   cursor: pointer;
 }
+
+/* Make the number input smaller */
+.container input[type="number"] {
+  width: 80px; /* Adjust the width to your desired size */
+  padding: 0.5rem;
+  font-size: 1rem;
+  text-align: center; /* Centers the number inside the box */
+}

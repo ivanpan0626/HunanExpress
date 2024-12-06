@@ -39,9 +39,14 @@ export default function CartProvider({ children }) {
     return items.reduce((prevValue, currValue) => prevValue + currValue, 0);
   };
 
-  const removeFromCart = (foodId) => {
+  const removeFromCart = (food) => {
     const filteredCartItems = cartItems.filter(
-      (item) => item.food.id !== foodId
+      (item) =>
+        !(
+          item.food.id === food.id &&
+          item.food.price === food.price &&
+          item.food.instructions === food.instructions
+        )
     );
     setCartItems(filteredCartItems);
   };
@@ -57,17 +62,29 @@ export default function CartProvider({ children }) {
 
     setCartItems(
       cartItems.map((item) =>
-        item.food.id === food.id ? changedCartItem : item
+        item.food.id === food.id &&
+        item.food.price === food.price &&
+        item.food.instructions === food.instructions
+          ? changedCartItem
+          : item
       )
     );
   };
 
-  const addToCart = (food) => {
-    const cartItem = cartItems.find((item) => item.food.id === food.id);
+  const addToCart = (food, quantity) => {
+    const cartItem = cartItems.find(
+      (item) =>
+        item.food.id === food.id &&
+        item.food.price === food.price &&
+        item.food.instructions === food.instructions
+    );
     if (cartItem) {
-      changeQuantity(cartItem, cartItem.quantity + 1);
+      changeQuantity(cartItem, cartItem.quantity + quantity);
     } else {
-      setCartItems([...cartItems, { food, quantity: 1, price: food.price }]);
+      setCartItems([
+        ...cartItems,
+        { food, quantity: quantity, price: food.price * quantity },
+      ]);
     }
   };
 
